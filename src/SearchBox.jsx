@@ -4,21 +4,27 @@ import Button from '@mui/material/Button';
 import "./SearchBox.css";
 
 export default function SearchBox({ updateInfo }) {
-    // --- ZONE 1: LOGIC STARTS HERE ---
     let [city, setCity] = useState("");
     let [error, setError] = useState(false);
 
-    const API_URL=import.meta.env.VITE_WEATHER_API_URL;
-    const API_KEY=import.meta.env.VITE_WEATHER_API_KEY;
+    const API_URL = import.meta.env.VITE_WEATHER_API_URL;
+    const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
     let getWeatherInfo = async (cityVal) => {
         try {
             console.log("Checking Env Variables:");
             console.log("URL:", API_URL); 
             console.log("Key:", API_KEY);
-            console.log("Full Link:", `${API_URL}weather?q=${cityVal}&appid=${API_KEY}&units=metric`);
-            let response = await fetch(`${API_URL}weather?q=${cityVal}&appid=${API_KEY}&units=metric`);
+            
+            // Note: Ensure your .env URL ends with '/weather' for this to work!
+            let response = await fetch(`${API_URL}?q=${cityVal}&appid=${API_KEY}&units=metric`);
             let jsonResponse = await response.json();
+
+            // --- FIX #1: Manual Error Check ---
+            // If the API returns a 404 (City not found), we must throw an error manually.
+            if (!response.ok) {
+                throw new Error(jsonResponse.message);
+            }
 
             let result = {
                 city: cityVal,
@@ -32,7 +38,8 @@ export default function SearchBox({ updateInfo }) {
             console.log(result);
             return result;
         } catch(err) {
-            throw error;
+            // --- FIX #2: Throw the actual 'err', not the state 'error' ---
+            throw err;
         }
     };
 
@@ -47,13 +54,13 @@ export default function SearchBox({ updateInfo }) {
             setCity("");
             let newInfo = await getWeatherInfo(city);
             updateInfo(newInfo);
+            setError(false); // Clear any previous errors on success
         } catch(err) {
+            console.log("THE REAL ERROR:", err);
             setError(true);
         }       
     };
-    // --- ZONE 1 ENDS HERE ---
 
-    // --- ZONE 2: UI (HTML) STARTS HERE ---
     return (
         <div className='SearchBox'>
             <form onSubmit={handleSubmit}>
