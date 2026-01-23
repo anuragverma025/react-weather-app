@@ -1,8 +1,32 @@
-.InfoBox{
-    text-align: center;
-}
-
-.cardContainer{
+.InfoBox {
     display: flex;
     justify-content: center;
+}
+
+.cardContainer {
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+.cardContainer:hover {
+    transform: translateY(-5px); /* Floats up slightly when hovered */
+}
+
+/* Target the Material UI Card directly */
+.MuiCard-root {
+    background: rgba(255, 255, 255, 0.7) !important; /* Semi-transparent */
+    backdrop-filter: blur(10px) !important; /* The "Frosted Glass" Blur */
+    border-radius: 20px !important; /* Softer corners */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important; /* Beautiful shadow */
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #333 !important;
+}
+
+/* Enhance the typography */
+.MuiTypography-h5 {
+    font-weight: bold !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between text and icon */
 }

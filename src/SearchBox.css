@@ -1,4 +1,32 @@
 .SearchBox {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+/* Make form elements sit side-by-side */
+.SearchBox form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Adds space between Input and Button */
+}
+
+/* Optional: Make the button pop */
+.SearchBox button {
+    background-color: #1976d2 !important;
+    font-weight: bold !important;
+    border-radius: 25px !important; /* Rounded button */
+    padding: 10px 20px !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.SearchBox button:hover {
+    transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+h2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: white;
 }

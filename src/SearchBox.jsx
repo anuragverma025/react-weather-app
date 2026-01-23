@@ -39,7 +39,7 @@ export default function SearchBox({ updateInfo }) {
             return result;
         } catch(err) {
             // --- FIX #2: Throw the actual 'err', not the state 'error' ---
-            throw err;
+            throw error;
         }
     };
 
@@ -72,7 +72,6 @@ export default function SearchBox({ updateInfo }) {
                     value={city}
                     onChange={handleChange}
                 />
-                <br /><br />
                 <Button variant="contained" type='submit'>
                     Search
                 </Button>
